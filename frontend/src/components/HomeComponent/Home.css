@@ -52,6 +52,11 @@
   justify-content: space-evenly;
 }
 
+.home_dashboard_cards > a {
+  text-decoration: none;
+  color: black;
+}
+
 @media screen and (max-width: 600px) {
   .home_dashboard {
     margin-bottom: 1rem;

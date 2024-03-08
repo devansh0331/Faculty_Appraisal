@@ -1,0 +1,15 @@
+.tp {
+  max-height: fit-content;
+  height: 90vh;
+  background: var(--secondary_color);
+  padding-top: 1.5rem;
+  /* padding-top: 25vh; */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.tp > {
+  margin-top: 2rem;
+}

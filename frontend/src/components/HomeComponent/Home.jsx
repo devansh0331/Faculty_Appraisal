@@ -4,12 +4,13 @@ import "./Home.css";
 import HomeCard from "./HomeCardComponent/HomeCard";
 import { RxDashboard } from "react-icons/rx";
 import { BiDetail } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 function Home() {
   return (
     <div className="container">
-      <div className="animate__animated animate__slideInDown home_leftCircle"></div>
-      <div className="animate__animated animate__slideInUp home_rightCircle"></div>
+      <div className="animate__animated animate__slideInDown left_circle"></div>
+      <div className="animate__animated animate__slideInUp right_circle"></div>
       <div className="home">
         <div className="animate__animated animate__fadeIn home_objective">
           <h3>
@@ -27,12 +28,25 @@ function Home() {
             <RxDashboard /> &nbsp;Dashboard
           </h3>
           <div className="home_dashboard_cards">
-            <HomeCard />
-            <HomeCard />
-            <HomeCard />
-            <HomeCard />
-            <HomeCard />
-            <HomeCard />
+            <Link to="/teaching-progress">
+              <HomeCard />
+            </Link>
+            <a href="">
+              <HomeCard />
+            </a>
+            <a href="">
+              <HomeCard />
+            </a>
+            <a href="">
+              <HomeCard />
+            </a>
+            <a href="">
+              <HomeCard />
+            </a>
+            <a href="">
+              <HomeCard />
+            </a>
+
             {/* <HomeCard /> */}
           </div>
         </div>
