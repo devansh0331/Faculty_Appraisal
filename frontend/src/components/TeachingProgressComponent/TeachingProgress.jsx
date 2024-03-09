@@ -3,6 +3,9 @@ import "./TeachingProgress.css";
 
 import { GiTeacher } from "react-icons/gi";
 import InputPopup from "./InputPopupComponent/InputPopup";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { FaRegEdit } from "react-icons/fa";
+import { IoMdCloudUpload } from "react-icons/io";
 
 function TeachingProgress() {
   const [bool, setBool] = useState(false);
@@ -23,6 +26,9 @@ function TeachingProgress() {
       </div>
       <div className="animate__animated animate__slideInDown left_circle"></div>
       <div className="animate__animated animate__slideInUp right_circle"></div>
+      <div className="upload">
+        <IoMdCloudUpload />
+      </div>
       <div className="tp">
         <h1 className="centerHeading">
           <GiTeacher /> &nbsp;Teaching Progress{" "}
@@ -59,6 +65,134 @@ function TeachingProgress() {
               <td>40</td>
               <td>38</td>
               <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Computer Science and Engineering</td>
+              <td>3, B</td>
+              <td>Theory of Computation</td>
+              <td>40</td>
+              <td>38</td>
+              <td>2.5</td>
+              <td>
+                <div
+                  classaName="action_btns"
+                  style={{ display: "flex", justifyContent: "space-evenly" }}
+                >
+                  <RiDeleteBin6Line />
+                  <FaRegEdit />
+                </div>
+              </td>
             </tr>
 
             <tr>

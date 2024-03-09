@@ -1,15 +1,18 @@
 .tp {
-  max-height: fit-content;
   height: 90vh;
-  background: var(--secondary_color);
-  padding-top: 1.5rem;
+  max-height: 100%;
+  /* background: var(--secondary_color); */
+  /* padding-top: 1.5rem; */
   /* padding-top: 25vh; */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: column;
+  /* margin-top: 20vh; */
+  display: grid;
+  grid-template-columns: auto;
+  /* align-items: center; */
+  justify-content: center;
+  /* width: 100vw; */
 }
 
-.tp > {
-  margin-top: 2rem;
+.tp > h1,
+.tp > .form_section {
+  margin-top: 2.5rem;
 }

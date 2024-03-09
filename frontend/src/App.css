@@ -50,6 +50,12 @@ table tr:nth-child(odd) {
   background: var(--secondary_color);
 }
 
+.action_btns {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+}
+
 .centerHeading {
   width: 100%;
   justify-content: center;
@@ -64,7 +70,7 @@ table tr:nth-child(odd) {
   border-radius: 0.5rem;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  width: 80%;
+  width: 100%;
   z-index: 2;
   /* overflow-y: auto; */
 }
@@ -86,8 +92,24 @@ table tr:nth-child(odd) {
 
 .right_circle {
   border-top-left-radius: 80%;
-  bottom: 0;
+  border-bottom-left-radius: 80%;
+
+  bottom: 0 !important;
   right: 0;
+}
+
+.upload {
+  position: fixed;
+  right: 2%;
+  top: 90%;
+  z-index: 10;
+  font-size: 3.5rem;
+  background: white;
+  width: fit-content;
+  line-height: 0;
+  border-radius: 45% 50%;
+  padding: 3px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
 }
 
 form {
@@ -185,6 +207,6 @@ input {
   }
 
   .form_section {
-    width: 90%;
+    overflow: auto;
   }
 }
