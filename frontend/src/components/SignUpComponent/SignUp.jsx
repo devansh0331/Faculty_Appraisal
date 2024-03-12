@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import "./SignUp.css";
 import { Link } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 function SignUp() {
   // USE_STATE VARIABLES
@@ -15,10 +16,49 @@ function SignUp() {
   const [email, setEmail] = useState("");
   const [facultyID, setFacultyID] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const data = new FormDate();
+    try {
+      const createUser = await fetch("http://localhost:5000/signup", {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          name,
+          department,
+          designation,
+          qualification,
+          specialization,
+          joiningDate,
+          phnNumber,
+          email,
+          facultyID,
+        }),
+      });
+
+      const parsedCreateUser = await createUser.json();
+      console.log(parsedCreateUser);
+
+      if (createUser.status == 200) {
+        // setUserInfo(parsedCreateUser.data);
+        setIsSignUp(false);
+
+        toast.success(parsedCreateUser.message);
+      }
+
+      if (createUser.status == 400 || createUser.status == 401) {
+        toast.error(parsedCreateUser);
+      }
+
+      if (createUser.status == 500) {
+        toast.warning(parsedCreateUser);
+      }
+    } catch (error) {
+      toast.error("Failed to create account !");
+    }
   };
 
   return (
@@ -64,8 +104,8 @@ function SignUp() {
               </div>
               <div className="two_inps">
                 <input
-                  type="date"
-                  placeholder="Date of joining institute"
+                  type="text"
+                  placeholder="Date of joining institute (dd/mm/yyyy)"
                   value={joiningDate}
                   onChange={(e) => setJoiningDate(e.target.value)}
                 />
