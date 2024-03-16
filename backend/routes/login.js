@@ -8,9 +8,13 @@ const login = async (req, res) => {
   const FacultyDoc = await Faculty.findOne({ email });
   const passOk = bcrypt.compareSync(password, FacultyDoc.password);
   if (passOk) {
-    console.log(FacultyDoc);
     jwt.sign(
-      { email, id: FacultyDoc._id, password: FacultyDoc.password },
+      {
+        email,
+        id: FacultyDoc._id,
+        password: FacultyDoc.password,
+        name: FacultyDoc.fname,
+      },
       secret,
       {},
       (error, token) => {

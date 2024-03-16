@@ -13,6 +13,7 @@ const cookieParser = require("cookie-parser");
 // ROUTES INITIALIZATION
 const signup = require("./routes/signup");
 const login = require("./routes/login");
+const profile = require("./routes/profile");
 
 // PORT NUMBER INIT
 const PORT = process.env.PORT_NUMBER || 8000;
@@ -46,9 +47,10 @@ mongoose
 //   var db = mongoose.connection;
 
 // REQUESTS
-app.get("/", (req, res) => res.send("Server is working fine"));
+app.get("/", () => res.send("Server is working fine"));
 app.post("/signup", signup);
 app.post("/login", login);
+app.get("/profile", profile);
 
 // LISTEN FUNCTION
 app.listen(PORT, () => {

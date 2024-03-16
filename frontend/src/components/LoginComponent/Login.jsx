@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
 import { Toaster, toast } from "react-hot-toast";
+import { UserContext } from "../../UserContext";
 
 function Login() {
   const navigate = useNavigate();
+
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,7 +27,7 @@ function Login() {
       // loginDoc.json().then((userInfo) => {
       //   setCurrentUser(userInfo);
       // });
-
+      setUserInfo(await loginDoc.json());
       toast.success("Login Successful!", {
         autoClose: 2000,
       });

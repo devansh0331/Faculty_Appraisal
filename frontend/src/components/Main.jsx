@@ -5,17 +5,20 @@ import SignUp from "./SignUpComponent/SignUp";
 import Login from "./LoginComponent/Login";
 import Topbar from "./TopbarComponent/Topbar";
 import TeachingProgress from "./TeachingProgressComponent/TeachingProgress";
+import { UserContextProvider } from "../UserContext";
 
 function Main() {
   return (
     <div>
-      <Topbar />
-      <Routes>
-        <Route exact path="/login" element={<Login />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/teaching-progress" element={<TeachingProgress />} />
-        <Route path="/" element={<Home />} />
-      </Routes>
+      <UserContextProvider>
+        <Topbar />
+        <Routes>
+          <Route exact path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/teaching-progress" element={<TeachingProgress />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </UserContextProvider>
     </div>
   );
 }
