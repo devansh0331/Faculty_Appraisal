@@ -14,6 +14,7 @@ const cookieParser = require("cookie-parser");
 const signup = require("./routes/signup");
 const login = require("./routes/login");
 const profile = require("./routes/profile");
+const logout = require("./routes/logout");
 
 // PORT NUMBER INIT
 const PORT = process.env.PORT_NUMBER || 8000;
@@ -51,6 +52,7 @@ app.get("/", () => res.send("Server is working fine"));
 app.post("/signup", signup);
 app.post("/login", login);
 app.get("/profile", profile);
+app.post("/logout", logout);
 
 // LISTEN FUNCTION
 app.listen(PORT, () => {

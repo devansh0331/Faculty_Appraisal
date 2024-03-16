@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const login = async (req, res) => {
   const { email, password } = req.body;
   const secret = process.env.SECRET;
+
   const FacultyDoc = await Faculty.findOne({ email });
   const passOk = bcrypt.compareSync(password, FacultyDoc.password);
   if (passOk) {

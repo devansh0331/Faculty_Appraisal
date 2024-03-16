@@ -3,11 +3,12 @@ import "./Topbar.css";
 import logo from "../../assets/logo/BIT_Logo.png";
 import { GrUserManager } from "react-icons/gr";
 import { UserContext } from "../../UserContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 function Topbar() {
   const { setUserInfo, userInfo } = useContext(UserContext);
-
+  const navigate = useNavigate();
   console.log(userInfo);
 
   useEffect(() => {
@@ -19,6 +20,23 @@ function Topbar() {
       console.log(error);
     }
   }, []);
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    // console.log(process.env.SERVER_URL);
+    fetch("http://localhost:8000/logout", {
+      method: "POST",
+      credentials: "include",
+    });
+
+    setUserInfo({});
+    toast.success("Logout Successful!", {
+      autoClose: 2000,
+    });
+    setTimeout(() => {
+      navigate("/login");
+    }, 2000);
+  };
 
   return (
     <>
@@ -38,7 +56,19 @@ function Topbar() {
             {userInfo.name ? (
               <>
                 <GrUserManager /> &nbsp;
-                <span>{userInfo.name}</span>{" "}
+                <span>{userInfo.name}</span> <br />
+                <p
+                  style={{
+                    fontSize: "1rem",
+                    color: "red",
+                    textAlign: "right",
+                    fontWeight: "bold",
+                    cursor: "pointer",
+                  }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </p>
               </>
             ) : (
               <span>
@@ -46,6 +76,7 @@ function Topbar() {
               </span>
             )}
           </div>
+          <Toaster position="top-right" />
         </div>
       )}
     </>
