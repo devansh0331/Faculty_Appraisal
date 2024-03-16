@@ -1,11 +1,41 @@
 import React, { useState } from "react";
 
 import "./Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 function Login() {
+  const navigate = useNavigate();
+
   const [email, setEmail] = useState("");
-  const [facultyID, setFacultyID] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const loginData = { email, password };
+    const loginDoc = await fetch("http://localhost:8000/login", {
+      method: "POST",
+      body: JSON.stringify(loginData),
+      headers: { "Content-Type": "application/json" },
+      credentials: "include",
+    });
+
+    if (loginDoc.status === 200) {
+      // loginDoc.json().then((userInfo) => {
+      //   setCurrentUser(userInfo);
+      // });
+
+      toast.success("Login Successful!", {
+        autoClose: 2000,
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 2000);
+    } else {
+      const msg = await loginDoc.json();
+      toast.error(msg);
+    }
+  };
 
   return (
     <div className="container">
@@ -16,7 +46,7 @@ function Login() {
         <div className="animate__animated animate__slideInUp sign_in_right">
           <div className="sign_in_form">
             <h1>Sign In</h1>
-            <form action="">
+            <form action="" onSubmit={handleSubmit}>
               <input
                 type="text"
                 placeholder="Enter your Email"
@@ -26,8 +56,8 @@ function Login() {
               <input
                 type="text"
                 placeholder="Enter your Password"
-                value={facultyID}
-                onChange={(e) => setFacultyID(e.target.value)}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <div className="sign_up_btn">
                 <button>Sign In</button>
@@ -51,6 +81,7 @@ function Login() {
             </form>
           </div>
         </div>
+        <Toaster position="top-right" />
       </div>
     </div>
   );

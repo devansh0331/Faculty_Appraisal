@@ -1,13 +1,8 @@
 const Faculty = require("../models/Faculty");
 const bcrypt = require("bcryptjs");
 
-const jwt = require("jsonwebtoken");
-
-const salt1 = bcrypt.genSaltSync(10);
-
-const secret = "hkdjhajklnajksdnanasmdasd";
-
 const signup = async (req, res) => {
+  const salt1 = await bcrypt.genSalt(10);
   try {
     const {
       name,
@@ -20,12 +15,14 @@ const signup = async (req, res) => {
       email,
       facultyID,
     } = req.body;
-    const isPrevUser = await Faculty.findOne({ email });
+
+    const isPrevUser = await Faculty.findOne({ faculty_id: facultyID });
 
     if (isPrevUser) {
-      res.status(401).json("Username already exists !");
+      res.status(401).json("User already exists !");
     } else {
-      const newUser = await Faculty.create({
+      const password = bcrypt.hashSync(facultyID, salt1);
+      var newUser = await Faculty.create({
         fname: name,
         department,
         designation,
@@ -35,9 +32,10 @@ const signup = async (req, res) => {
         phone_number: phnNumber,
         email,
         faculty_id: facultyID,
-        password: bcrypt.hashSync(facultyID, salt1),
+        password,
         createdAt: Date.now(),
       });
+
       if (newUser) {
         res
           .status(200)
@@ -47,6 +45,7 @@ const signup = async (req, res) => {
       }
     }
   } catch (err) {
+    console.log("Error " + err);
     res.status(500).json("Server Error !");
   }
 };

@@ -98,4 +98,7 @@
   .sign_up_right h1 {
     font-size: 2.5rem;
   }
+  .sign_up_form {
+    height: fit-content;
+  }
 }

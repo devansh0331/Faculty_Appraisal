@@ -46,6 +46,12 @@ function Home() {
             <a href="">
               <HomeCard />
             </a>
+            <a href="">
+              <HomeCard />
+            </a>
+            <a href="">
+              <HomeCard />
+            </a>
 
             {/* <HomeCard /> */}
           </div>

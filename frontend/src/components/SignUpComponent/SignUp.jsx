@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 
 import "./SignUp.css";
-import { Link } from "react-router-dom";
-import { toast } from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { Toaster, toast } from "react-hot-toast";
 
 function SignUp() {
+  const navigate = useNavigate();
+
   // USE_STATE VARIABLES
   const [name, setName] = useState("");
   const [designation, setDesignation] = useState("");
@@ -18,43 +20,62 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    console.log("Heeloo");
     try {
-      const createUser = await fetch("http://localhost:5000/signup", {
-        method: "POST",
-        headers: {
-          "Content-type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({
-          name,
-          department,
-          designation,
-          qualification,
-          specialization,
-          joiningDate,
-          phnNumber,
-          email,
-          facultyID,
-        }),
-      });
+      if (
+        name &&
+        designation &&
+        department &&
+        qualification &&
+        specialization &&
+        joiningDate &&
+        phnNumber &&
+        email &&
+        facultyID
+      ) {
+        const createUser = await fetch("http://localhost:8000/signup", {
+          method: "POST",
+          body: JSON.stringify({
+            name,
+            department,
+            designation,
+            qualification,
+            specialization,
+            joiningDate,
+            phnNumber,
+            email,
+            facultyID,
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+          // credentials: "include",
+        });
 
-      const parsedCreateUser = await createUser.json();
-      console.log(parsedCreateUser);
+        const parsedCreateUser = await createUser.json();
+        console.log(createUser);
+        console.log(parsedCreateUser);
 
-      if (createUser.status == 200) {
-        // setUserInfo(parsedCreateUser.data);
-        setIsSignUp(false);
+        if (createUser.status == 200) {
+          // setUserInfo(parsedCreateUser.data);
 
-        toast.success(parsedCreateUser.message);
-      }
+          toast.success(parsedCreateUser.message, {
+            autoClose: 2000,
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
+        }
 
-      if (createUser.status == 400 || createUser.status == 401) {
-        toast.error(parsedCreateUser);
-      }
+        if (createUser.status == 400 || createUser.status == 401) {
+          toast.error(parsedCreateUser);
+        }
 
-      if (createUser.status == 500) {
-        toast.warning(parsedCreateUser);
+        if (createUser.status == 500) {
+          toast.warning(parsedCreateUser);
+        }
+      } else {
+        toast.error("All fields are required*");
       }
     } catch (error) {
       toast.error("Failed to create account !");
@@ -65,9 +86,9 @@ function SignUp() {
     <div className="container">
       <div className="sign_up">
         <div className="animate__animated animate__slideInDown sign_up_left">
-          <div className="sign_up_form">
+          <div className="sign_up_form ">
             <h1>Please fill the following details</h1>
-            <form action="" onSubmit={handleSubmit}>
+            <form action="">
               <input
                 type="text"
                 placeholder="Full Name"
@@ -127,11 +148,11 @@ function SignUp() {
                   type="text"
                   placeholder="5-Digit Faculty ID"
                   value={facultyID}
-                  onChange={(e) => setFacultyID(e.target.facultyID)}
+                  onChange={(e) => setFacultyID(e.target.value)}
                 />
               </div>
               <div className="sign_up_btn">
-                <button>Sign Up</button>
+                <button onClick={handleSubmit}>Sign Up</button>
               </div>
               <div className="">
                 <p style={{ textAlign: "center" }}>
@@ -155,6 +176,7 @@ function SignUp() {
         <div className="animate__animated animate__slideInUp sign_up_right">
           <h1>Join with us</h1>
         </div>
+        <Toaster position="top-right" />
       </div>
     </div>
   );

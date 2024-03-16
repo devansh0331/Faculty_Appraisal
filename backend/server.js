@@ -12,6 +12,7 @@ const cookieParser = require("cookie-parser");
 
 // ROUTES INITIALIZATION
 const signup = require("./routes/signup");
+const login = require("./routes/login");
 
 // PORT NUMBER INIT
 const PORT = process.env.PORT_NUMBER || 8000;
@@ -47,6 +48,7 @@ mongoose
 // REQUESTS
 app.get("/", (req, res) => res.send("Server is working fine"));
 app.post("/signup", signup);
+app.post("/login", login);
 
 // LISTEN FUNCTION
 app.listen(PORT, () => {

@@ -57,6 +57,17 @@
   color: black;
 }
 
+@media screen and (max-width: 900px) {
+  .home_dashboard_cards {
+    grid-template-columns: auto auto auto;
+  }
+}
+@media screen and (max-width: 800px) {
+  .home_dashboard_cards {
+    grid-template-columns: auto auto;
+  }
+}
+
 @media screen and (max-width: 600px) {
   .home_dashboard {
     margin-bottom: 1rem;
