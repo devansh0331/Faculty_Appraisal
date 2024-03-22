@@ -52,7 +52,7 @@ mongoose
 //   var db = mongoose.connection;
 
 // REQUESTS
-app.get("/", () => res.send("Server is working fine"));
+app.get("/", (req, res) => res.send("Server is working fine"));
 app.post("/signup", signup);
 app.post("/login", login);
 app.get("/profile", profile);
