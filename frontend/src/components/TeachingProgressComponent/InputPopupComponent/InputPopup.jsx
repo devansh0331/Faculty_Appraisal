@@ -2,12 +2,27 @@ import React from "react";
 
 import "./InputPopup.css";
 
-function InputPopup(props) {
+function InputPopup({
+  handleDisplay,
+  course,
+  courseOnChange,
+  sem_sec,
+  sem_secOnChange,
+  subject,
+  subjectOnChange,
+  scheduled_classes,
+  scheduled_classesOnChange,
+  held_classes,
+  held_classesOnChange,
+  handlePopupSubmit,
+  pointsOnChange,
+  points,
+}) {
   return (
     <div className=" animate__animated animate__fadeIn input_popup_container">
       <div className="input_popup">
         <h3
-          onClick={props.handleDisplay}
+          onClick={handleDisplay}
           style={{
             textAlign: "right",
             cursor: "pointer",
@@ -19,19 +34,49 @@ function InputPopup(props) {
         <h3 style={{ textAlign: "center" }}>Workload </h3>
         <form action="">
           <div className="two_inps">
-            <input type="text" placeholder="Course" />
-            <input type="text" placeholder="Section & Semester" />
+            <input
+              type="text"
+              placeholder="Course"
+              value={course}
+              onChange={courseOnChange}
+            />
+            <input
+              type="text"
+              placeholder="Section & Semester"
+              value={sem_sec}
+              onChange={sem_secOnChange}
+            />
           </div>
-          <input type="text" placeholder="Name of Subject" />
+          <input
+            type="text"
+            placeholder="Name of Subject"
+            value={subject}
+            onChange={subjectOnChange}
+          />
           <div className="two_inps">
-            <input type="text" placeholder="No. of Schedules Classes" />
-            <input type="text" placeholder="No. of Actually held Classes" />
+            <input
+              type="number"
+              placeholder="No. of Schedules Classes"
+              value={scheduled_classes}
+              onChange={scheduled_classesOnChange}
+            />
+            <input
+              type="number"
+              placeholder="No. of Actually held Classes"
+              value={held_classes}
+              onChange={held_classesOnChange}
+            />
           </div>
           <div className="two_inps">
-            <input type="text" placeholder="Points Earned (Average)" />
+            <input
+              type="text"
+              placeholder="Points Earned (Average)"
+              value={points}
+              onChange={pointsOnChange}
+            />
           </div>
           <div className="form_btn">
-            <button>Submit</button>
+            <button onClick={handlePopupSubmit}>Submit</button>
           </div>
         </form>
       </div>

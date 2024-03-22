@@ -11,10 +11,14 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
 // ROUTES INITIALIZATION
-const signup = require("./routes/signup");
-const login = require("./routes/login");
-const profile = require("./routes/profile");
-const logout = require("./routes/logout");
+
+// USER ROUTES
+const signup = require("./routes/User/signup");
+const login = require("./routes/User/login");
+const profile = require("./routes/User/profile");
+const logout = require("./routes/User/logout");
+
+// WORKLOAD ROUTES
 
 // PORT NUMBER INIT
 const PORT = process.env.PORT_NUMBER || 8000;
@@ -23,7 +27,7 @@ const PORT = process.env.PORT_NUMBER || 8000;
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:5173",
+    origin: process.env.SERVER_URL,
   })
 );
 

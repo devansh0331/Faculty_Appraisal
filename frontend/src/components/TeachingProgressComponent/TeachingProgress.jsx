@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./TeachingProgress.css";
 
 import { GiTeacher } from "react-icons/gi";
@@ -7,12 +7,93 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegEdit } from "react-icons/fa";
 import { IoMdCloudUpload } from "react-icons/io";
 
+import { Toaster, toast } from "react-hot-toast";
+
 function TeachingProgress() {
   const [bool, setBool] = useState(false);
 
-  const handleDisplay = (e) => {
+  const [course, setCourse] = useState("");
+  const [sem_sec, setSem_Sec] = useState("");
+  const [subject, setSubject] = useState("");
+  const [scheduled_classes, setScheduled_classes] = useState("");
+  const [held_classes, setHeld_classes] = useState("");
+  const [points, setPoints] = useState(0);
+  const [count, setCount] = useState(0);
+  // const [points, setPoints] = useState("");
+
+  const [workload, setWorkload] = useState([]);
+
+  // useEffect for getting data from localStorage
+  useEffect(() => {
+    const items = JSON.parse(localStorage.getItem("items"));
+    if (items) {
+      setWorkload(items);
+    }
+  }, []);
+
+  // For closing InputPopup Component
+  const handleClose = (e) => {
     e.preventDefault();
     setBool(!bool);
+  };
+
+  // For opening InputPopup Component and setting values in it
+  const handleDisplay = (e) => {
+    e.preventDefault();
+    setWorkload([
+      ...workload,
+      {
+        count: 0,
+        course: "",
+        sem_sec: "",
+        subject: "",
+        scheduled_classes: "",
+        held_classes: "",
+        points: "",
+      },
+    ]);
+    setBool(!bool);
+  };
+
+  //
+  const handlePopupSubmit = (e) => {
+    e.preventDefault();
+    console.log(workload.length);
+    const List = [...workload];
+    if (
+      course == "" ||
+      sem_sec == "" ||
+      subject == "" ||
+      scheduled_classes == "" ||
+      held_classes == ""
+    ) {
+      toast.error("All fields are mandatory");
+    } else {
+      List[workload.length - 1].course = course;
+      List[workload.length - 1].sem_sec = sem_sec;
+      List[workload.length - 1].subject = subject;
+      List[workload.length - 1].scheduled_classes = scheduled_classes;
+      List[workload.length - 1].held_classes = held_classes;
+      List[workload.length - 1].points =
+        (parseInt(scheduled_classes) + parseInt(held_classes)) / 16;
+      List[workload.length - 1].count = workload.length - 1;
+
+      setWorkload(List);
+      localStorage.setItem("items", JSON.stringify(List));
+      toast.success("Data added successfully");
+      setBool(!bool);
+      setCourse("");
+      setSem_Sec("");
+      setSubject("");
+      setScheduled_classes("");
+      setHeld_classes("");
+      setPoints(0);
+    }
+  };
+
+  // Uploading data to database
+  const handleUpload = (e) => {
+    e.preventDefault();
   };
 
   return (
@@ -22,11 +103,37 @@ function TeachingProgress() {
           bool ? "disp_block" : " animate__animated animate__fadeOut disp_none"
         }
       >
-        <InputPopup handleDisplay={handleDisplay} />
+        <InputPopup
+          handleDisplay={handleClose}
+          courseOnChange={(e) => setCourse(e.target.value)}
+          course={course}
+          sem_secOnChange={(e) => setSem_Sec(e.target.value)}
+          sem_sec={sem_sec}
+          subjectOnChange={(e) => setSubject(e.target.value)}
+          subject={subject}
+          scheduled_classesOnChange={(e) =>
+            setScheduled_classes(e.target.value)
+          }
+          scheduled_classes={scheduled_classes}
+          held_classesOnChange={(e) => {
+            setHeld_classes(e.target.value);
+            if (scheduled_classes != "" && held_classes != "") {
+              setPoints(
+                (parseInt(held_classes) + parseInt(scheduled_classes)) / 16
+              );
+            } else {
+              setPoints(0);
+            }
+          }}
+          held_classes={held_classes}
+          pointsOnChange={(e) => {}}
+          points={points}
+          handlePopupSubmit={handlePopupSubmit}
+        />
       </div>
       <div className="animate__animated animate__slideInDown left_circle"></div>
       <div className="animate__animated animate__slideInUp right_circle"></div>
-      <div className="upload">
+      <div className="upload" onClick={handleUpload}>
         <IoMdCloudUpload />
       </div>
       <div className="tp">
@@ -57,143 +164,34 @@ function TeachingProgress() {
               </th>
               <th>Action Buttons</th>
             </tr>
-
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
-            <tr>
-              <td>Computer Science and Engineering</td>
-              <td>3, B</td>
-              <td>Theory of Computation</td>
-              <td>40</td>
-              <td>38</td>
-              <td>2.5</td>
-              <td>
-                <div
-                  classaName="action_btns"
-                  style={{ display: "flex", justifyContent: "space-evenly" }}
-                >
-                  <RiDeleteBin6Line />
-                  <FaRegEdit />
-                </div>
-              </td>
-            </tr>
+            {
+              // workload[2] != "" &&
+              workload.map((item, index) => {
+                return (
+                  <tr key={index}>
+                    <td>{item.course}</td>
+                    <td>{item.sem_sec}</td>
+                    <td>{item.subject}</td>
+                    <td>{item.scheduled_classes}</td>
+                    <td>{item.held_classes}</td>
+                    <td>{item.points}</td>
+                    <td>
+                      <div
+                        classaName="action_btns"
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-evenly",
+                          cursor: "pointer",
+                        }}
+                      >
+                        <RiDeleteBin6Line style={{ color: "red" }} />
+                        <FaRegEdit style={{ color: "green" }} />
+                      </div>
+                    </td>
+                  </tr>
+                );
+              })
+            }
 
             <tr>
               <td colspan="7  ">
@@ -223,6 +221,7 @@ function TeachingProgress() {
             </div> */}
           </form>
         </div>
+        <Toaster position="top-right" />
       </div>
     </div>
   );

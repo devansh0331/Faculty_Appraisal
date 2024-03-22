@@ -6,6 +6,8 @@ import { RxDashboard } from "react-icons/rx";
 import { BiDetail } from "react-icons/bi";
 import { Link } from "react-router-dom";
 
+
+
 function Home() {
   return (
     <div className="container">
